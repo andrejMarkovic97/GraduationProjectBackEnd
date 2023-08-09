@@ -6,7 +6,7 @@ public class User
         string password, string firstName,
         string lastName, List<CourseAttendance> courseAttendances,
         List<SessionAttendance> sessionAttendances, Role role,
-        Guid roleId)
+        Guid roleId, List<Certificate> certificates)
     {
         UserId = userId;
         Email = email;
@@ -17,6 +17,7 @@ public class User
         SessionAttendances = sessionAttendances;
         Role = role;
         RoleId = roleId;
+        Certificates = certificates;
     }
 
     #region Entity Properties
@@ -35,6 +36,8 @@ public class User
     public List<SessionAttendance> SessionAttendances { get; set; }
     public Role Role { get; set; }
     public Guid RoleId { get; set; }
+
+    public List<Certificate> Certificates { get; set; }
 
     #endregion
     

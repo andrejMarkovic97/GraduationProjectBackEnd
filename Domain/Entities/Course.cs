@@ -31,6 +31,7 @@ public class Course
     public List<CourseAttendance> CourseAttendances { get; set; }
     public List<Certificate> Certificates { get; set; }
     public Category Category { get; set; }
+    public Guid CategoryId { get; set; }
     
     #endregion
     
