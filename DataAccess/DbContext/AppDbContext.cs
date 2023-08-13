@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
     {
     }
-
+    
     //DB Sets
     public DbSet<User> Users { get; set; }
     public DbSet<Certificate> Certificates { get; set; }
@@ -212,6 +213,7 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Password).HasColumnName("password").IsRequired();
             entity.Property(e => e.FirstName).HasColumnName("first_name").IsRequired();
             entity.Property(e => e.LastName).HasColumnName("last_name").IsRequired();
+            entity.Property(e => e.RoleId).HasColumnName("id_role").IsRequired();
 
             entity.HasMany(u => u.CourseAttendances)
                 .WithOne(ca => ca.User)

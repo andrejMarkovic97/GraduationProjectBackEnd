@@ -16,10 +16,10 @@ public class GenericService<TEntityDto, TEntity> : IGenericService<TEntityDto, T
         _mapper = mapper;
     }
 
-    public IQueryable<TEntityDto> GetAll()
+    public async Task<List<TEntityDto>> GetAllAsync()
     {
-        var entities = _repository.GetAll();
-        return _mapper.ProjectTo<TEntityDto>(entities);
+        var entities = await _repository.GetAllAsync();
+        return _mapper.Map<List<TEntityDto>>(entities);
     }
 
     public async Task<TEntityDto> GetByIdAsync(Guid id)

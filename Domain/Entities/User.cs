@@ -2,24 +2,6 @@ namespace Domain.Entities;
 
 public class User
 {
-    public User(Guid userId, string email,
-        string password, string firstName,
-        string lastName, List<CourseAttendance> courseAttendances,
-        List<SessionAttendance> sessionAttendances, Role role,
-        Guid roleId, List<Certificate> certificates)
-    {
-        UserId = userId;
-        Email = email;
-        Password = password;
-        FirstName = firstName;
-        LastName = lastName;
-        CourseAttendances = courseAttendances;
-        SessionAttendances = sessionAttendances;
-        Role = role;
-        RoleId = roleId;
-        Certificates = certificates;
-    }
-
     #region Entity Properties
     
     public Guid UserId { get; set; }

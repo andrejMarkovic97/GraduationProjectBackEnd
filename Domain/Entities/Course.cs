@@ -3,20 +3,6 @@ namespace Domain.Entities;
 
 public class Course
 {
-    public Course(Guid courseId, string name,
-        string description, List<Session> sessions,
-        List<CourseAttendance> courseAttendances, List<Certificate> certificates,
-        Category category)
-    {
-        CourseId = courseId;
-        Name = name;
-        Description = description;
-        Sessions = sessions;
-        CourseAttendances = courseAttendances;
-        Certificates = certificates;
-        Category = category;
-    }
-
     #region Entity Properties
     
     public Guid CourseId { get; set; }

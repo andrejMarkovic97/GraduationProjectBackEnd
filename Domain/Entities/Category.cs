@@ -2,14 +2,6 @@ namespace Domain.Entities;
 
 public class Category
 {
-    public Category(Guid categoryId, string categoryName, List<Course> courses, List<Topic> topics)
-    {
-        CategoryId = categoryId;
-        CategoryName = categoryName;
-        Courses = courses;
-        Topics = topics;
-    }
-
     #region Entity Properties
     
     public Guid CategoryId { get; set; } 
