@@ -5,5 +5,5 @@ namespace DataAccess.UserRepository;
 
 public interface IUserRepository : IGenericRepository<User>
 {
-    public Task<bool> Authenticate(User user);
+    public Task<User?> GetUserByEmail(string email);
 }

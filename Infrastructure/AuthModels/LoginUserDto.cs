@@ -1,4 +1,4 @@
-namespace Infrastructure.LoginDto;
+namespace Infrastructure.AuthModels;
 
 public record LoginUserDto(string Email, string Password)
 {

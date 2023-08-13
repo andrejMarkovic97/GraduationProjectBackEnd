@@ -1,10 +1,10 @@
+using Infrastructure.AuthModels;
 using Infrastructure.AuthService;
-using Infrastructure.LoginDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Auth
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -14,8 +14,8 @@ namespace GraduationProjectBackEnd.Auth
         {
             _authService = authService;
         }
-        // GET: api/Join
-        [HttpGet("Authenticate")]
+        
+        [HttpPost]
         public async Task<IActionResult> Login(LoginUserDto user)
         {
             var token = await _authService.Authenticate(user);
@@ -24,7 +24,13 @@ namespace GraduationProjectBackEnd.Auth
                 ? Unauthorized("Invalid credentials")
                 : Ok(token);
         }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterUserDto user)
+        {
+            var result = await _authService.Register(user);
 
+            return Ok(result);
+        }
        
     }
 }

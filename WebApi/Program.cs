@@ -4,7 +4,6 @@ using DataAccess.DbContext;
 using DataAccess.GenericRepository;
 using DataAccess.UserRepository;
 using Domain.Entities;
-using Infrastructure.AuthenticationService;
 using Infrastructure.AuthService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +24,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IGenericRepository<Role>, GenericRepository<Role>>();
 
 builder.Services.AddTransient<IAuthService, AuthService>();
 //Mapper
