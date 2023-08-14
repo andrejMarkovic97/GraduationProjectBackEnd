@@ -1,3 +1,5 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Infrastructure.AuthModels;
 using Infrastructure.AuthService;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +20,7 @@ namespace GraduationProjectBackEnd.Auth
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserDto user)
         {
+            
             var token = await _authService.Authenticate(user);
             
             return token == null 

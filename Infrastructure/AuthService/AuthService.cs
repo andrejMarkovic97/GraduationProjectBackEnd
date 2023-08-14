@@ -49,12 +49,17 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new(ClaimTypes.Name, user.Email)
+                new(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
+                new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
+                new(ClaimTypes.Email, user.Email),
+                new(ClaimTypes.Role, user.Role.RoleName)
             }),
             Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature),
+            Audience = _configuration["JwtSettings:Audience"],
+            Issuer = _configuration["JwtSettings:Issuer"]
         };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
+        var token = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
         return new Token { AuthToken = tokenHandler.WriteToken(token) };
     }
 
