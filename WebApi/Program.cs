@@ -1,5 +1,6 @@
 using System.Text;
 using Application.GenericService;
+using ApplicationServices.GenericApplicationService;
 using DataAccess.DbContext;
 using DataAccess.GenericRepository;
 using DataAccess.UserRepository;
@@ -22,7 +23,8 @@ builder.Services.AddSwaggerGen();
 //Dependency injection registration
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+builder.Services.AddScoped(typeof(IGenericApplicationService<,>), typeof(GenericApplicationService<,>));
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGenericRepository<Role>, GenericRepository<Role>>();

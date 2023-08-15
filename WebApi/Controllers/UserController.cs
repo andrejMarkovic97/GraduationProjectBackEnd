@@ -1,5 +1,6 @@
 using Application.DataTransferObjects;
 using Application.GenericService;
+using ApplicationServices.GenericApplicationService;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +10,18 @@ namespace GraduationProjectBackEnd.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IGenericService<UserDto,User> _userService;
+        private readonly IGenericApplicationService<User, UserDto> _userApplicationService;
 
-        public UserController(IGenericService<UserDto,User> userService)
+
+        public UserController(IGenericApplicationService<User,UserDto> userApplicationService)
         {
-            _userService = userService;
+            _userApplicationService = userApplicationService;
         }
        // GET: api/User
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var data = await _userService.GetAllAsync();
+            var data = await _userApplicationService.GetAllAsync();
             return Ok(data);
         }
 

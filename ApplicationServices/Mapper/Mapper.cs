@@ -3,7 +3,7 @@ using AutoMapper;
 using Domain.Entities;
 using Infrastructure.AuthModels;
 
-namespace Application.Mapper;
+namespace ApplicationServices.Mapper;
 
 public class Mapper : Profile
 {
