@@ -49,10 +49,10 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new(JwtRegisteredClaimNames.NameId, user.UserId.ToString()),
-                new(ClaimTypes.Name, $"{user.FirstName} {user.LastName}"),
-                new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.Role, user.Role.RoleName)
+                new(JwtRegisteredClaimNames.NameId, existingUser.UserId.ToString()),
+                new(ClaimTypes.Name, $"{existingUser.FirstName} {existingUser.LastName}"),
+                new(ClaimTypes.Email, existingUser.Email),
+                new(ClaimTypes.Role, existingUser.Role.RoleName)
             }),
             Expires = DateTime.UtcNow.AddHours(1),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature),

@@ -83,6 +83,19 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+
+builder.Services.AddCors(options =>  
+{  
+          
+    options.AddDefaultPolicy(  
+        policy =>  
+        {  
+            policy.AllowAnyOrigin()  
+                .AllowAnyHeader()  
+                .AllowAnyMethod();  
+        });  
+});  
+
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -96,6 +109,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthentication();
 

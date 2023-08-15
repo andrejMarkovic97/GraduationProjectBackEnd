@@ -36,7 +36,9 @@ public class UserRepository : GenericRepository<User>,IUserRepository
 
     public async Task<User?> GetUserByEmail(string email)
     {
-        var existingUser = await DbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var existingUser = await DbContext.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Email == email);
 
         return existingUser;
     }
