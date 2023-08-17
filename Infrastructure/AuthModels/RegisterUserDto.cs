@@ -14,6 +14,7 @@ public class RegisterUserDto
     public string Password { get; set; }
     public string FirstName { get; set; } 
     public string LastName { get; set; }
-    public Guid RoleId { get; set; } = Guid.Parse("F370835C-E177-4EA8-814B-48C81BAC5D57");
+
+    public int RoleId { get; set; }
 
 }

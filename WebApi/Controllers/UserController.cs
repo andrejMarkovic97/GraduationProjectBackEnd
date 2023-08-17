@@ -1,12 +1,15 @@
-using Application.DataTransferObjects;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Application.GenericService;
+using ApplicationServices.DataTransferObjects;
 using ApplicationServices.GenericApplicationService;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -17,7 +20,8 @@ namespace GraduationProjectBackEnd.Controllers
         {
             _userApplicationService = userApplicationService;
         }
-       // GET: api/User
+
+        // GET: api/User
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -30,6 +34,16 @@ namespace GraduationProjectBackEnd.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+        
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult?> GetActiveUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return userId != null
+                ? Ok(await _userApplicationService.GetByIdAsync(Guid.Parse(userId)))
+                : null;
         }
         
         // POST: api/User

@@ -1,4 +1,4 @@
-using Application.DataTransferObjects;
+using ApplicationServices.DataTransferObjects;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.AuthModels;

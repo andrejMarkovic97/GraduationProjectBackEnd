@@ -49,7 +49,7 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new(JwtRegisteredClaimNames.NameId, existingUser.UserId.ToString()),
+                new(ClaimTypes.NameIdentifier, existingUser.UserId.ToString()),
                 new(ClaimTypes.Name, $"{existingUser.FirstName} {existingUser.LastName}"),
                 new(ClaimTypes.Email, existingUser.Email),
                 new(ClaimTypes.Role, existingUser.Role.RoleName)

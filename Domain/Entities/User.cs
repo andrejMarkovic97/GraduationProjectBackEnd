@@ -17,7 +17,7 @@ public class User
     public List<CourseAttendance> CourseAttendances { get; set; }
     public List<SessionAttendance> SessionAttendances { get; set; }
     public Role Role { get; set; }
-    public Guid RoleId { get; set; }
+    public int RoleId { get; set; }
 
     public List<Certificate> Certificates { get; set; }
 
