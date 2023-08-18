@@ -5,9 +5,11 @@ public class Course
 {
     #region Entity Properties
     
-    public Guid CourseId { get; set; }
+    public Guid CourseId { get; set; } = Guid.NewGuid();
     public string Name { get; set; }
     public string Description { get; set; }
+    public string ImagePath { get; set; }
+    
     
     #endregion
     

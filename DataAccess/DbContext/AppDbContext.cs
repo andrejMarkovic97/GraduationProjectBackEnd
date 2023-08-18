@@ -158,6 +158,7 @@ public class AppDbContext : DbContext
         entity.Property(c => c.CourseId).HasColumnName("id_course").IsRequired();
         entity.Property(c => c.Name).HasColumnName("course_name").IsRequired();
         entity.Property(c => c.Description).HasColumnName("course_description").IsRequired();
+        entity.Property(c => c.ImagePath).HasColumnName("image_path").IsRequired();
         entity.Property(c => c.CategoryId).HasColumnName("id_category").IsRequired(); 
         
         entity.HasMany(c => c.Sessions)

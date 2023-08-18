@@ -8,47 +8,47 @@ public class GenericApplicationService<TEntity, TDto> : IGenericApplicationServi
     where TDto : class 
    
 {
-    private readonly IGenericService<TEntity> _genericService;
-    private readonly IMapper _mapper;
+    protected readonly IGenericService<TEntity> GenericService;
+    protected readonly IMapper Mapper;
 
     public GenericApplicationService(IGenericService<TEntity> genericService, IMapper mapper)
     {
-        _genericService = genericService;
-        _mapper = mapper;
+        GenericService = genericService;
+        Mapper = mapper;
     }
 
 
     public virtual async Task<TDto?> GetByIdAsync(Guid id)
     {
-        var entity = await _genericService.GetByIdAsync(id);
+        var entity = await GenericService.GetByIdAsync(id);
 
         return entity != null
-            ? _mapper.Map<TEntity, TDto>(entity)
+            ? Mapper.Map<TEntity, TDto>(entity)
             : null;
     }
 
     public virtual async Task<List<TDto>> GetAllAsync()
     {
-        var list = await _genericService.GetAllAsync();
-        return _mapper.Map<List<TEntity>, List<TDto>>(list);
+        var list = await GenericService.GetAllAsync();
+        return Mapper.Map<List<TEntity>, List<TDto>>(list);
     }
 
     public virtual async Task<TDto> CreateAsync(TDto dto)
     {
-        var entity = _mapper.Map<TDto, TEntity>(dto);
-        await _genericService.CreateAsync(entity);
+        var entity = Mapper.Map<TDto, TEntity>(dto);
+        await GenericService.CreateAsync(entity);
         return dto;
     }
 
     public virtual async Task<TDto> UpdateAsync(TDto dto)
     {
-        var entity = _mapper.Map<TDto, TEntity>(dto);
-        await _genericService.UpdateAsync(entity);
+        var entity = Mapper.Map<TDto, TEntity>(dto);
+        await GenericService.UpdateAsync(entity);
         return dto;
     }
 
     public virtual async Task DeleteAsync(Guid id)
     {
-        await _genericService.DeleteAsync(id);
+        await GenericService.DeleteAsync(id);
     }
 }

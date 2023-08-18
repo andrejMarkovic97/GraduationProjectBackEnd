@@ -1,4 +1,5 @@
 using ApplicationServices.DataTransferObjects;
+using ApplicationServices.DataTransferObjects.Course;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.AuthModels;
@@ -12,5 +13,10 @@ public class Mapper : Profile
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
+
+        CreateMap<CourseCreateUpdateDto, Domain.Entities.Course>()
+            .ForMember(dest => dest.ImagePath, opt => opt.Ignore());
+
+        CreateMap<Domain.Entities.Course, CourseReadDto>();
     }
 }
