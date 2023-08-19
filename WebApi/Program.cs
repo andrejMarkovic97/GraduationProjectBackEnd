@@ -1,6 +1,9 @@
 using System.Text;
 using Application.GenericService;
+using ApplicationServices.CourseApplicationService;
 using ApplicationServices.GenericApplicationService;
+using DataAccess.CategoryRepository;
+using DataAccess.CourseRepository;
 using DataAccess.DbContext;
 using DataAccess.GenericRepository;
 using DataAccess.UserRepository;
@@ -25,10 +28,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IGenericApplicationService<,>), typeof(GenericApplicationService<,>));
+
+//USER
 builder.Services.AddScoped<IGenericRepository<User>, UserRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGenericRepository<Role>, GenericRepository<Role>>();
 
+//COURSE
+builder.Services.AddScoped<ICourseApplicationService, CourseApplicationService>();
+builder.Services.AddScoped<IGenericService<Course>, GenericService<Course>>();
+builder.Services.AddScoped<IGenericRepository<Course>, CourseRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+
+//CATEGORY
+builder.Services.AddScoped<IGenericService<Category>, GenericService<Category>>();
+builder.Services.AddScoped<IGenericRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 builder.Services.AddTransient<IAuthService, AuthService>();
 //Mapper
@@ -107,6 +122,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 app.UseCors();

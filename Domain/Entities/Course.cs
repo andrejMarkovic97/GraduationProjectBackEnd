@@ -20,6 +20,9 @@ public class Course
     public List<Certificate> Certificates { get; set; }
     public Category Category { get; set; }
     public Guid CategoryId { get; set; }
+
+    public Topic Topic { get; set; }
+    public Guid TopicId { get; set; }
     
     #endregion
     

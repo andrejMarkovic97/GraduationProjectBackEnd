@@ -1,8 +1,6 @@
+using ApplicationServices.DataTransferObjects.Category;
+using ApplicationServices.DataTransferObjects.TopicDto;
+
 namespace ApplicationServices.DataTransferObjects.Course;
 
-public record CourseReadDto
-{
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string ImagePath { get; set; }
-}
+public record CourseReadDto(string Name, string Description, string ImagePath, Guid TopicId, Guid CategoryId);

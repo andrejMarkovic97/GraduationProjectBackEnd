@@ -10,6 +10,7 @@ namespace GraduationProjectBackEnd.Controllers
     {
         [HttpGet]
         [Authorize]
+        [Route("images/{filename}")]
         public IActionResult GetImage(string filename)
         {
             var filePath = ImageHelper.GetPath(filename);

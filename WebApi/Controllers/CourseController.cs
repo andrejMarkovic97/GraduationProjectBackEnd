@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationServices.CourseApplicationService;
+using ApplicationServices.DataTransferObjects.Course;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,36 +12,51 @@ namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class CourseController : ControllerBase
     {
-        public CourseController()
+        private readonly ICourseApplicationService _courseApplicationService;
+
+        public CourseController(ICourseApplicationService courseApplicationService)
         {
-            
+            _courseApplicationService = courseApplicationService;
         }
         // GET: api/Course
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+        //[Authorize]
+        public async Task<IActionResult> Get()
+        { 
+            var list = await _courseApplicationService.GetAllAsync();
+
+            return Ok(list);
         }
 
+        [Authorize]
         // GET: api/Course/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Details(Guid id)
         {
-            return "value";
+            var course =  await _courseApplicationService.GetByIdAsync(id);
+
+            return Ok(course);
         }
 
         // POST: api/Course
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post(CourseCreateUpdatePostDto dto)
         {
+            var course = await _courseApplicationService.CreateAsync(dto);
+
+            return Ok(course);
         }
 
-        // PUT: api/Course/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT: api/Course
+        [HttpPut]
+        public async Task<IActionResult> Put(CourseCreateUpdatePostDto dto)
         {
+            var course = await _courseApplicationService.UpdateAsync(dto);
+
+            return Ok(course);
         }
 
         // DELETE: api/Course/5

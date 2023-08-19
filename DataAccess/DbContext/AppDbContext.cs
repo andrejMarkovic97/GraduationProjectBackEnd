@@ -70,6 +70,10 @@ public class AppDbContext : DbContext
             .WithMany(ca => ca.Topics)
             .HasForeignKey(t => t.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        entity.HasMany(t => t.Courses)
+            .WithOne(c => c.Topic)
+            .HasForeignKey(c => new { c.CategoryId, c.TopicId }); 
     }
 
     private void ConfigureSessionAttendance(EntityTypeBuilder<SessionAttendance> entity)
@@ -157,9 +161,10 @@ public class AppDbContext : DbContext
         
         entity.Property(c => c.CourseId).HasColumnName("id_course").IsRequired();
         entity.Property(c => c.Name).HasColumnName("course_name").IsRequired();
-        entity.Property(c => c.Description).HasColumnName("course_description").IsRequired();
+        entity.Property(c => c.Description).HasColumnName("course_description");
         entity.Property(c => c.ImagePath).HasColumnName("image_path").IsRequired();
-        entity.Property(c => c.CategoryId).HasColumnName("id_category").IsRequired(); 
+        entity.Property(c => c.CategoryId).HasColumnName("id_category").IsRequired();
+        entity.Property(c => c.TopicId).HasColumnName("id_topic").IsRequired();
         
         entity.HasMany(c => c.Sessions)
             .WithOne(s => s.Course)
@@ -169,17 +174,22 @@ public class AppDbContext : DbContext
         entity.HasMany(c => c.CourseAttendances)
             .WithOne(ca => ca.Course)
             .HasForeignKey(ca => ca.CourseId)
-            .OnDelete(DeleteBehavior.Cascade);;
+            .OnDelete(DeleteBehavior.Cascade);
 
         entity.HasMany(c => c.Certificates)
             .WithOne(crt => crt.Course)
             .HasForeignKey(crt => crt.CourseId)
-            .OnDelete(DeleteBehavior.Restrict);;
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Define the many-to-one relationship with Category using .HasOne()
         entity.HasOne(c => c.Category)
             .WithMany(ca => ca.Courses)
             .HasForeignKey(c => c.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        entity.HasOne(c => c.Topic)
+            .WithMany(t=>t.Courses)
+            .HasForeignKey(c =>new { c.CategoryId, c.TopicId })
             .OnDelete(DeleteBehavior.Restrict);;
     }
 

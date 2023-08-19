@@ -13,7 +13,9 @@ public class Topic
     
     public Category Category { get; set; }
     public Guid CategoryId { get; set; }
-    
+
+    public List<Course> Courses { get; set; }
+
     #endregion
    
 }

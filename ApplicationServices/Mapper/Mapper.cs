@@ -10,13 +10,16 @@ public class Mapper : Profile
 {
     public Mapper()
     {
+        //User
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
 
-        CreateMap<CourseCreateUpdateDto, Domain.Entities.Course>()
+        //Course
+        CreateMap<CourseCreateUpdatePostDto, Course>()
             .ForMember(dest => dest.ImagePath, opt => opt.Ignore());
-
-        CreateMap<Domain.Entities.Course, CourseReadDto>();
+        CreateMap<Course, CourseCreateUpdateGetDto>();
+        CreateMap<Course, CourseReadDto>();
+        CreateMap<CourseCreateUpdatePostDto, Course>();
     }
 }
