@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -30,13 +30,13 @@ namespace GraduationProjectBackEnd.Controllers
         }
 
        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
         
-        [HttpGet]
+        [HttpGet("GetActiveUser")]
         [Authorize]
         public async Task<IActionResult?> GetActiveUser()
         {
