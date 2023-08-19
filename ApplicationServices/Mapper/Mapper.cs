@@ -1,5 +1,7 @@
 using ApplicationServices.DataTransferObjects;
+using ApplicationServices.DataTransferObjects.Category;
 using ApplicationServices.DataTransferObjects.Course;
+using ApplicationServices.DataTransferObjects.TopicDto;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.AuthModels;
@@ -21,5 +23,11 @@ public class Mapper : Profile
         CreateMap<Course, CourseCreateUpdateGetDto>();
         CreateMap<Course, CourseReadDto>();
         CreateMap<CourseCreateUpdatePostDto, Course>();
+        
+        //Category
+        CreateMap<Category,CategoryReadDto>();
+        
+        //Topic
+        CreateMap<Topic,TopicReadDto>();
     }
 }

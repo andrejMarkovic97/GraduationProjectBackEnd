@@ -30,7 +30,7 @@ public class GenericApplicationService<TEntity, TDto> : IGenericApplicationServi
     public virtual async Task<List<TDto>> GetAllAsync()
     {
         var list = await GenericService.GetAllAsync();
-        return Mapper.Map<List<TEntity>, List<TDto>>(list);
+        return Mapper.Map<List<TDto>>(list);
     }
 
     public virtual async Task<TDto> CreateAsync(TDto dto)
