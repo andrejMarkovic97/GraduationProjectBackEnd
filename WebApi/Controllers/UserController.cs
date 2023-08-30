@@ -1,6 +1,4 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Application.GenericService;
 using ApplicationServices.DataTransferObjects;
 using ApplicationServices.GenericApplicationService;
 using Domain.Entities;

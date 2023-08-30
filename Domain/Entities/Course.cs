@@ -9,8 +9,9 @@ public class Course
     public string Name { get; set; }
     public string Description { get; set; }
     public string ImagePath { get; set; }
-    
-    
+
+    //Represents how many sessions must a learner visit to get his certificate
+    public int NumberOfSessionsForCertificate { get; set; }
     #endregion
     
     #region Navigational Properties

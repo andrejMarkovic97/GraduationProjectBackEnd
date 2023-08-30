@@ -1,11 +1,16 @@
 using System.Text;
-using Application.GenericService;
 using ApplicationServices.CourseApplicationService;
+using ApplicationServices.CourseAttendanceApplicationService;
 using ApplicationServices.GenericApplicationService;
+using ApplicationServices.SessionApplicationService;
 using DataAccess.CategoryRepository;
+using DataAccess.CourseAttendanceRepository;
+using DataAccess.CourseAttendancesQueryRepository;
 using DataAccess.CourseRepository;
 using DataAccess.DbContext;
 using DataAccess.GenericRepository;
+using DataAccess.SessionAttendanceRepository;
+using DataAccess.SessionRepository;
 using DataAccess.UserRepository;
 using Domain.Entities;
 using Infrastructure.AuthService;
@@ -26,7 +31,6 @@ builder.Services.AddSwaggerGen();
 //Dependency injection registration
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 builder.Services.AddScoped(typeof(IGenericApplicationService<,>), typeof(GenericApplicationService<,>));
 
 //USER
@@ -36,16 +40,26 @@ builder.Services.AddScoped<IGenericRepository<Role>, GenericRepository<Role>>();
 
 //COURSE
 builder.Services.AddScoped<ICourseApplicationService, CourseApplicationService>();
-builder.Services.AddScoped<IGenericService<Course>, GenericService<Course>>();
 builder.Services.AddScoped<IGenericRepository<Course>, CourseRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseAttendancesQueryRepository, CourseAttendancesQueryRepository>();
 
 //CATEGORY
-builder.Services.AddScoped<IGenericService<Category>, GenericService<Category>>();
 builder.Services.AddScoped<IGenericRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
+//SESSION
+builder.Services.AddScoped<IGenericRepository<Session>, SessionRepository>();
+builder.Services.AddScoped<ISessionApplicationService, SessionApplicationService >();
 builder.Services.AddTransient<IAuthService, AuthService>();
+
+//COURSE ATTENDANCE
+builder.Services.AddScoped<ICourseAttendanceApplicationService, CourseAttendanceApplicationService>();
+builder.Services.AddScoped<ICourseAttendanceRepository, CourseAttendanceRepository>();
+
+//SESSION ATTENDANCE
+builder.Services.AddScoped<ISessionAttendanceRepository, SessionAttendanceRepository>();
+
 //Mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

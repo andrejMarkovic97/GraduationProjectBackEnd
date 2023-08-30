@@ -3,4 +3,4 @@ using ApplicationServices.DataTransferObjects.TopicDto;
 
 namespace ApplicationServices.DataTransferObjects.Course;
 
-public record CourseReadDto(string Name, string Description, string ImagePath, Guid TopicId, Guid CategoryId);
+public record CourseReadDto(Guid CourseId,string Name, string Description, string ImagePath, Guid TopicId, Guid CategoryId);

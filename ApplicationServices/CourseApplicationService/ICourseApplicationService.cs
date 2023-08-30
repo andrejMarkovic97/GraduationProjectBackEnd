@@ -1,3 +1,4 @@
+using ApplicationServices.DataTransferObjects;
 using ApplicationServices.DataTransferObjects.Course;
 
 namespace ApplicationServices.CourseApplicationService;
@@ -11,5 +12,6 @@ public interface ICourseApplicationService
     public Task<CourseCreateUpdateGetDto> GetByIdAsync(Guid id);
 
     public Task<CourseCreateUpdateGetDto> UpdateAsync(CourseCreateUpdatePostDto dto);
-
+    
+    public Task<List<UserDto>> GetUsersNotAttendingCourse(Guid id);
 }

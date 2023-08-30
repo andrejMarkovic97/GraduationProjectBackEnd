@@ -1,3 +1,4 @@
+using DataAccess.QueryModels;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,7 @@ public class AppDbContext : DbContext
     public DbSet<SessionAttendance> SessionAttendances { get; set; }
     public DbSet<Topic> Topic { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<CourseAttendancesQueryModel> CourseAttendancesQueryModels { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -34,6 +36,9 @@ public class AppDbContext : DbContext
        modelBuilder.Entity<SessionAttendance>(ConfigureSessionAttendance);
        modelBuilder.Entity<Topic>(ConfigureTopic);
        modelBuilder.Entity<Category>(ConfigureCategory);
+       
+       modelBuilder.Entity<CourseAttendancesQueryModel>()
+           .HasNoKey();
     }
 
     private void ConfigureCategory(EntityTypeBuilder<Category> entity)
@@ -141,6 +146,9 @@ public class AppDbContext : DbContext
         entity.Property(c => c.CourseId).HasColumnName("id_course").IsRequired();
         entity.Property(c => c.Address).HasColumnName("address").IsRequired();
         entity.Property(c => c.SessionDate).HasColumnName("session_date").IsRequired();
+        entity.Property(c => c.City).HasColumnName("city").IsRequired();
+        entity.Property(c => c.Country).HasColumnName("country").IsRequired();
+        
 
         entity.HasOne(s => s.Course)
             .WithMany(c => c.Sessions)
@@ -165,6 +173,7 @@ public class AppDbContext : DbContext
         entity.Property(c => c.ImagePath).HasColumnName("image_path").IsRequired();
         entity.Property(c => c.CategoryId).HasColumnName("id_category").IsRequired();
         entity.Property(c => c.TopicId).HasColumnName("id_topic").IsRequired();
+        entity.Property(c => c.NumberOfSessionsForCertificate).HasColumnName("num_of_sessions_for_certificate").IsRequired();
         
         entity.HasMany(c => c.Sessions)
             .WithOne(s => s.Course)
@@ -180,8 +189,7 @@ public class AppDbContext : DbContext
             .WithOne(crt => crt.Course)
             .HasForeignKey(crt => crt.CourseId)
             .OnDelete(DeleteBehavior.Restrict);
-
-        // Define the many-to-one relationship with Category using .HasOne()
+        
         entity.HasOne(c => c.Category)
             .WithMany(ca => ca.Courses)
             .HasForeignKey(c => c.CategoryId)

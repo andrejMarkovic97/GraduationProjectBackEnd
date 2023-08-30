@@ -4,6 +4,10 @@ public class Session
 {
     public Guid SessionId { get; set; }
     public string Address { get; set; }
+
+    public string City { get; set; }
+
+    public string Country { get; set; }
     public DateTime SessionDate { get; set; }
     public Course Course { get; set; }
     public Guid CourseId { get; set; }

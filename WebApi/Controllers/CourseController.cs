@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApplicationServices.CourseApplicationService;
 using ApplicationServices.DataTransferObjects.Course;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
@@ -31,10 +25,10 @@ namespace GraduationProjectBackEnd.Controllers
             return Ok(list);
         }
 
-        [Authorize]
+        // [Authorize]
         // GET: api/Course/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var course =  await _courseApplicationService.GetByIdAsync(id);
 
@@ -43,7 +37,7 @@ namespace GraduationProjectBackEnd.Controllers
 
         // POST: api/Course
         [HttpPost]
-        public async Task<IActionResult> Post(CourseCreateUpdatePostDto dto)
+        public async Task<IActionResult> Post([FromForm]CourseCreateUpdatePostDto dto)
         {
             var course = await _courseApplicationService.CreateAsync(dto);
 
@@ -64,5 +58,20 @@ namespace GraduationProjectBackEnd.Controllers
         public void Delete(int id)
         {
         }
+        
+        
+        
+        [HttpGet("GetUsersNotAttendingCourse/{id}")]
+        public async Task<IActionResult> GetUsersNotAttendingCourse(Guid id)
+        {
+            var list = await _courseApplicationService.GetUsersNotAttendingCourse(id);
+
+            return Ok(list);
+        }
+        
+        
+        
+
+    
     }
 }
