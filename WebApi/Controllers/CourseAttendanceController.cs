@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationServices.CourseAttendanceApplicationService;
 using ApplicationServices.DataTransferObjects.Course;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CourseAttendanceController : ControllerBase
     {
         private readonly ICourseAttendanceApplicationService _courseAttendanceApplicationService;

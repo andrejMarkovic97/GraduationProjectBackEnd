@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApplicationServices.DataTransferObjects.Category;
 using ApplicationServices.GenericApplicationService;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly IGenericApplicationService<Category, CategoryReadDto> _genericApplicationService;

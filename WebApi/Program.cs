@@ -3,6 +3,7 @@ using ApplicationServices.CourseApplicationService;
 using ApplicationServices.CourseAttendanceApplicationService;
 using ApplicationServices.GenericApplicationService;
 using ApplicationServices.SessionApplicationService;
+using ApplicationServices.SessionAttendanceApplicationService;
 using DataAccess.CategoryRepository;
 using DataAccess.CourseAttendanceRepository;
 using DataAccess.CourseAttendancesQueryRepository;
@@ -59,6 +60,7 @@ builder.Services.AddScoped<ICourseAttendanceRepository, CourseAttendanceReposito
 
 //SESSION ATTENDANCE
 builder.Services.AddScoped<ISessionAttendanceRepository, SessionAttendanceRepository>();
+builder.Services.AddScoped<ISessionAttendanceApplicationService, SessionAttendanceApplicationService>();
 
 //Mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -1,12 +1,13 @@
 using ApplicationServices.CourseApplicationService;
 using ApplicationServices.DataTransferObjects.Course;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [Authorize]
     public class CourseController : ControllerBase
     {
         private readonly ICourseApplicationService _courseApplicationService;
@@ -46,7 +47,7 @@ namespace GraduationProjectBackEnd.Controllers
 
         // PUT: api/Course
         [HttpPut]
-        public async Task<IActionResult> Put(CourseCreateUpdatePostDto dto)
+        public async Task<IActionResult> Put([FromForm]CourseCreateUpdatePostDto dto)
         {
             var course = await _courseApplicationService.UpdateAsync(dto);
 
@@ -55,10 +56,11 @@ namespace GraduationProjectBackEnd.Controllers
 
         // DELETE: api/Course/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            await _courseApplicationService.DeleteAsync(id);
+            return Ok();
         }
-        
         
         
         [HttpGet("GetUsersNotAttendingCourse/{id}")]
@@ -69,9 +71,5 @@ namespace GraduationProjectBackEnd.Controllers
             return Ok(list);
         }
         
-        
-        
-
-    
     }
 }

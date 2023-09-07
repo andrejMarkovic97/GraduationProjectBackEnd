@@ -1,11 +1,13 @@
 using ApplicationServices.DataTransferObjects.SessionAttendance;
 using ApplicationServices.SessionAttendanceApplicationService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SessionAttendanceController : ControllerBase
     {
         private readonly ISessionAttendanceApplicationService _sessionAttendanceApplicationService;

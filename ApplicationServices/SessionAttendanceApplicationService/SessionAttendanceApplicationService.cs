@@ -21,7 +21,9 @@ public class SessionAttendanceApplicationService : GenericApplicationService<Ses
     {
         var list = await _sessionAttendanceRepository.GetSessionAttendances(sessionId);
 
-        return Mapper.Map<List<SessionAttendanceDto>>(list);
+        var result =  Mapper.Map<List<SessionAttendanceDto>>(list);
+
+        return result;
     }
 
     public async Task DeleteAsync(Guid sessionId, Guid userId)

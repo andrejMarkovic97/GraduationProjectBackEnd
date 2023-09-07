@@ -1,15 +1,15 @@
 using ApplicationServices.DataTransferObjects;
 using ApplicationServices.DataTransferObjects.Course;
+using ApplicationServices.GenericApplicationService;
+using Domain.Entities;
 
 namespace ApplicationServices.CourseApplicationService;
 
-public interface ICourseApplicationService
+public interface ICourseApplicationService : IGenericApplicationService<Course, CourseReadDto>
 {
     public Task<CourseCreateUpdateGetDto> CreateAsync(CourseCreateUpdatePostDto dto);
-
-    public Task<List<CourseReadDto>> GetAllAsync();
-
-    public Task<CourseCreateUpdateGetDto> GetByIdAsync(Guid id);
+    
+    public new Task<CourseCreateUpdateGetDto> GetByIdAsync(Guid id);
 
     public Task<CourseCreateUpdateGetDto> UpdateAsync(CourseCreateUpdatePostDto dto);
     

@@ -64,4 +64,27 @@ public class UserRepository : GenericRepository<User>, IUserRepository
 
         return list;
     }
+    
+    public async Task<List<User>> GetUsersNotAttendingSession(Guid id)
+    {
+        var sessionId = new SqlParameter("@sessionId", id);
+
+        var query = @"select distinct t_users.id_user, t_users.email, 
+        t_users.first_name, t_users.last_name, t_users.password, t_users.id_role
+        from t_users
+        left join t_session_attendances on t_users.id_user = t_session_attendances.id_user
+		inner join t_sessions on t_sessions.id_session = @sessionId
+		inner join t_course_attendances on t_sessions.id_course = t_course_attendances.id_course
+        inner join t_roles on t_users.id_role = t_roles.id_role
+        where (t_session_attendances.id_session != @sessionId or t_session_attendances.id_session is null)
+        and t_users.id_role = 0 
+        and t_course_attendances.id_user = t_users.id_user";
+        
+        var list = await DbContext
+            .Users
+            .FromSqlRaw(query, sessionId)
+            .ToListAsync();
+
+        return list;
+    }
 }

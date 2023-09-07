@@ -4,6 +4,7 @@ using AutoMapper;
 using DataAccess.CourseAttendanceRepository;
 using DataAccess.CourseAttendancesQueryRepository;
 using DataAccess.GenericRepository;
+using DataAccess.SessionAttendanceRepository;
 using Domain.Entities;
 
 namespace ApplicationServices.CourseAttendanceApplicationService;
@@ -13,14 +14,16 @@ public class CourseAttendanceApplicationService : GenericApplicationService<Cour
 {
     private readonly ICourseAttendancesQueryRepository _queryRepository;
     private readonly ICourseAttendanceRepository _courseAttendanceRepository;
+    private readonly ISessionAttendanceRepository _sessionAttendanceRepository;
 
     public CourseAttendanceApplicationService(IGenericRepository<CourseAttendance> genericRepository,
         IMapper mapper, ICourseAttendancesQueryRepository queryRepository,
-        ICourseAttendanceRepository courseAttendanceRepository)
+        ICourseAttendanceRepository courseAttendanceRepository, ISessionAttendanceRepository sessionAttendanceRepository)
         : base(genericRepository, mapper)
     {
         _queryRepository = queryRepository;
         _courseAttendanceRepository = courseAttendanceRepository;
+        _sessionAttendanceRepository = sessionAttendanceRepository;
     }
 
     public async Task<List<CourseAttendanceDto>> GetCourseAttendances(Guid id)
@@ -39,6 +42,9 @@ public class CourseAttendanceApplicationService : GenericApplicationService<Cour
 
     public async Task DeleteAsync(Guid courseId, Guid userId)
     {
+        //Before deleting the course attendance,
+        //delete all of the existing session attendances from this user for this course
+        await _sessionAttendanceRepository.DeleteSessionAttendancesByCourseId(courseId, userId);
         await _courseAttendanceRepository.DeleteAsync(courseId, userId);
     }
 }

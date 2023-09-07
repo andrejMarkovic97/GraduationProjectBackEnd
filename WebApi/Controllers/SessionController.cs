@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ApplicationServices.DataTransferObjects.Session;
 using ApplicationServices.SessionApplicationService;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProjectBackEnd.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SessionController : ControllerBase
     {
         private readonly ISessionApplicationService _sessionApplicationService;
@@ -32,7 +29,7 @@ namespace GraduationProjectBackEnd.Controllers
         {
             var session = await _sessionApplicationService.GetByIdAsync(id);
 
-            return session != null
+            return session != null 
                 ? Ok(session)
                 : NotFound();
         }
@@ -54,8 +51,11 @@ namespace GraduationProjectBackEnd.Controllers
 
         // PUT: api/Session/5
         [HttpPut]
-        public async Task Put(SessionDto dto)
+        public async Task<IActionResult> Put(SessionDto dto)
         {
+          var session =  await _sessionApplicationService.UpdateAsync(dto);
+            
+            return Ok(session);
         }
 
         // DELETE: api/Session/5
@@ -72,6 +72,13 @@ namespace GraduationProjectBackEnd.Controllers
             return Ok(list);
         }
         
-       
+        [HttpGet("GetUsersNotAttendingSession/{id}")]
+        public async Task<IActionResult> GetUsersNotAttendingSession(Guid id)
+        {
+            var list = await _sessionApplicationService.GetUsersNotAttendingSession(id);
+
+            return Ok(list);
+        }
+
     }
 }

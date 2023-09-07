@@ -8,4 +8,6 @@ public interface ISessionAttendanceRepository : IGenericRepository<SessionAttend
     public Task<List<SessionAttendance>> GetSessionAttendances(Guid sessionId);
 
     public Task DeleteAsync(Guid sessionId, Guid userId);
+
+    public Task DeleteSessionAttendancesByCourseId(Guid courseId, Guid userId);
 }

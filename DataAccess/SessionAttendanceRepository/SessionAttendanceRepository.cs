@@ -30,4 +30,16 @@ public class SessionAttendanceRepository : GenericRepository<SessionAttendance>,
             await DbContext.SaveChangesAsync();
         }
     }
+
+    public async Task DeleteSessionAttendancesByCourseId(Guid courseId, Guid userId)
+    {
+        var attendancesToBeDeleted = await DbContext.SessionAttendances
+            .Include(sa => sa.Session)
+            .Where(sa => sa.Session.CourseId == courseId && sa.UserId == userId)
+            .AsNoTracking()
+            .ToListAsync();
+        
+        DbContext.SessionAttendances.RemoveRange(attendancesToBeDeleted);
+        await DbContext.SaveChangesAsync();
+    }
 }
