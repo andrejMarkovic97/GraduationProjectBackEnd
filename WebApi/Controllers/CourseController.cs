@@ -38,7 +38,7 @@ namespace GraduationProjectBackEnd.Controllers
 
         // POST: api/Course
         [HttpPost]
-        public async Task<IActionResult> Post([FromForm]CourseCreateUpdatePostDto dto)
+        public async Task<IActionResult> Post([FromForm]CourseCreateUpdateDto dto)
         {
             var course = await _courseApplicationService.CreateAsync(dto);
 
@@ -47,7 +47,7 @@ namespace GraduationProjectBackEnd.Controllers
 
         // PUT: api/Course
         [HttpPut]
-        public async Task<IActionResult> Put([FromForm]CourseCreateUpdatePostDto dto)
+        public async Task<IActionResult> Put([FromForm]CourseCreateUpdateDto dto)
         {
             var course = await _courseApplicationService.UpdateAsync(dto);
 

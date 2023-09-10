@@ -30,9 +30,4 @@ public static class ImageHelper
             await image.CopyToAsync(fileStream);
         }
     }
-
-    public static string GetPath(string fileName)
-    {
-        return Path.Combine(UploadsFolder, fileName);
-    }
 }

@@ -19,18 +19,21 @@ public class Mapper : Profile
         CreateMap<User, UserDto>().ReverseMap();
         CreateMap<LoginUserDto, User>();
         CreateMap<RegisterUserDto, User>();
+        
+        //Role
+        CreateMap<Role, RoleDto>().ReverseMap();
 
         //Course
-        CreateMap<CourseCreateUpdatePostDto, Course>()
+        CreateMap<CourseCreateUpdateDto, Course>()
             .ForMember(dest => dest.ImagePath, opt => opt.Ignore());
         CreateMap<Course, CourseCreateUpdateGetDto>();
         CreateMap<Course, CourseReadDto>();
-        CreateMap<CourseCreateUpdatePostDto, Course>();
+        CreateMap<CourseCreateUpdateDto, Course>();
         CreateMap<Course, CourseWithSessionsDto>();
 
         //Course Attendances
         CreateMap<CourseAttendancesQueryModel, CourseAttendanceDto>();
-        CreateMap<CourseAttendancePostDto, CourseAttendance>();
+        CreateMap<CourseAttendancePostDto, CourseAttendance>().ReverseMap();
 
         //Session
         CreateMap<Session, SessionDto>()

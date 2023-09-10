@@ -55,7 +55,7 @@ public class UserRepository : GenericRepository<User>, IUserRepository
         left join t_course_attendances on t_users.id_user = t_course_attendances.id_user
         inner join t_roles on t_users.id_role = t_roles.id_role
         where (t_course_attendances.id_course != @courseId or t_course_attendances.id_course is null)
-        and t_users.id_role = 0";
+        and t_users.id_role = 0"; 
         
         var list = await DbContext
             .Users

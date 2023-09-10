@@ -40,9 +40,9 @@ public class AuthService : IAuthService
         {
             return null;
         }
+        
         // User name and password are valid. 
         // Generate JSON Web Token
-
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenKey = Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]!);
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -54,7 +54,7 @@ public class AuthService : IAuthService
                 new(ClaimTypes.Email, existingUser.Email),
                 new(ClaimTypes.Role, existingUser.Role.RoleName)
             }),
-            Expires = DateTime.UtcNow.AddHours(1),
+            Expires = DateTime.UtcNow.AddHours(6),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature),
             Audience = _configuration["JwtSettings:Audience"],
             Issuer = _configuration["JwtSettings:Issuer"]

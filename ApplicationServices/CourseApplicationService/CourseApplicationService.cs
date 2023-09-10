@@ -23,16 +23,16 @@ public class CourseApplicationService : GenericApplicationService<Course,CourseR
         _courseRepository = courseRepository;
         _userRepository = userRepository;
     }
-    public async Task<CourseCreateUpdateGetDto> CreateAsync(CourseCreateUpdatePostDto postDto)
+    public async Task<CourseCreateUpdateGetDto> CreateAsync(CourseCreateUpdateDto dto)
     {
-        var course = Mapper.Map<Course>(postDto);
+        var course = Mapper.Map<Course>(dto);
 
         if (course.CourseId == Guid.Empty)
         {
             course.CourseId = Guid.NewGuid();
         }
 
-        course.ImagePath = UploadImage(course.CourseId, postDto.Image);
+        course.ImagePath = UploadImage(course.CourseId, dto.Image);
 
         await _courseRepository.AddAsync(course);
 
@@ -62,7 +62,7 @@ public class CourseApplicationService : GenericApplicationService<Course,CourseR
         return Mapper.Map<CourseCreateUpdateGetDto>(course);
     }
 
-    public async Task<CourseCreateUpdateGetDto> UpdateAsync(CourseCreateUpdatePostDto dto)
+    public async Task<CourseCreateUpdateGetDto> UpdateAsync(CourseCreateUpdateDto dto)
     {
         var course = Mapper.Map<Course>(dto);
 

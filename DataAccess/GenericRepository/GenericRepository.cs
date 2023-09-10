@@ -13,30 +13,24 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         DbContext = context ?? throw new ArgumentNullException(nameof(context));
         _dbSet = context.Set<T>();
     }
-
     public virtual async Task<List<T>> GetAllAsync()
     {
         return await _dbSet.ToListAsync();
     }
-
     public virtual Task<List<T>> GetListById(Guid id)
     {
         //implemented in specific entity repositories
         throw new NotImplementedException();
     }
-
     public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
-        
     }
-
     public virtual async Task AddAsync(T entity)
     {
         await _dbSet.AddAsync(entity);
         await DbContext.SaveChangesAsync();
     }
-
     public async Task AddList(List<T> list)
     {
         await _dbSet.AddRangeAsync(list);
